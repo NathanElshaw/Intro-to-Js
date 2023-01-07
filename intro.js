@@ -1,4 +1,3 @@
-let user = "John";
-let admin = user;
+const sample = document.getElementById(input);
 
-alert(admin);
+addEventListener(onclick, sample, alert("clicked"));
