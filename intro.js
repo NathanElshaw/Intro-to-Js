@@ -23,3 +23,39 @@ function last(string) {
 }
 
 console.log(last("imlearning!"));
+
+function finnBuzz(int) {
+  let answer = 0;
+  for (let n = 0; int >= n; n++) {
+    if (
+      ((answer = n / 3), answer - Math.floor(answer) === 0) &&
+      ((answer = n / 5), answer - Math.floor(answer) === 0)
+    ) {
+      console.log("FinnBuzz");
+    } else if (((answer = n / 3), answer - Math.floor(answer) === 0)) {
+      console.log("Finn");
+    } else if (((answer = n / 5), answer - Math.floor(answer) === 0)) {
+      console.log("Buzz");
+    } else {
+      console.log(n);
+    }
+  }
+}
+
+console.log(finnBuzz(26));
+
+function finnBuzz2(int) {
+  for (let i = 1; i <= int; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      console.log("FizzBuzz");
+    } else if (i % 3 === 0) {
+      console.log("Fizz");
+    } else if (i % 5 === 0) {
+      console.log("Buzz");
+    } else {
+      console.log(i);
+    }
+  }
+}
+
+console.log(finnBuzz2(26));
