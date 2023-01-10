@@ -59,3 +59,8 @@ function finnBuzz2(int) {
 }
 
 console.log(finnBuzz2(26));
+
+const btn = document.querySelector("#btn");
+btn.addEventListener("click", function (e) {
+  console.log(e.target);
+});
