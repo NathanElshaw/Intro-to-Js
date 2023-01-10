@@ -19,3 +19,16 @@
 .grid-item:hover {
   background-color: black;
 }
+
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.seen {
+  display: block;
+}
