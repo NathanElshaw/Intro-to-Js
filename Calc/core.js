@@ -5,6 +5,8 @@ const enter = document.querySelector("#operate");
 const calcButton = document.querySelectorAll(".btnMain");
 const operatorButton = document.querySelectorAll(".operator");
 
+let display = null;
+
 let firstOperation = null;
 let secondOperation = null;
 let firstOperator = null;
@@ -12,7 +14,7 @@ let secondOperator = null;
 
 calcButton.forEach((btnMain) => {
   btnMain.addEventListener("click", () => {
-    updateDisplay();
+    runningCount(btnMain.value, currentDisplay.textContent);
   });
 });
 
@@ -27,18 +29,49 @@ clear.addEventListener("click", () => {
 });
 
 enter.addEventListener("click", () => {
-  operate(pastDisplay.textContent, currentDisplay.textContent);
+  console.log(firstOperation, secondOperation, firstOperator);
+  console.log(operate(firstOperation, secondOperation, firstOperator));
 });
 
+function runningCount(input, last) {
+  if (currentDisplay.textContent === "0") {
+    currentDisplay.textContent = input;
+  } else {
+    currentDisplay.textContent = last.concat(input);
+  }
+}
+
 function addOperator(input) {
+  if (firstOperation != null) {
+    secondOperation = currentDisplay.textContent;
+    console.log("first if exe", secondOperation);
+    firstOperator = null;
+  } else if ((secondOperation = null)) {
+    firstOperation = currentDisplay.textContent;
+  } else {
+    currentDisplay.textContent = operate(
+      secondOperation,
+      firstOperation,
+      firstOperator
+    );
+  }
+  console.log(
+    "Running count",
+    firstOperation,
+    secondOperation,
+    firstOperator,
+    secondOperator
+  );
   if (firstOperator != null) {
+    operate(firstOperation, secondOperation, firstOperator);
     secondOperator = input;
+    firstOperation = null;
   } else {
     firstOperator = input;
-    operate(a, b, op);
+    currentDisplay.textContent = "0";
     secondOperator = null;
   }
-  console.log(firstOperator, secondOperator);
+  console.log("eq check", firstOperator, secondOperator);
 }
 
 function operate(a, b, op) {
@@ -55,6 +88,8 @@ function operate(a, b, op) {
       currentDisplay.textContent = a / b;
     }
   }
+  secondOperation = currentDisplay.textContent;
+  firstOperation = null;
 }
 
 function clearDisplay() {
