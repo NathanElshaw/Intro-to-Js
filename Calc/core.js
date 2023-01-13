@@ -33,6 +33,7 @@ enter.addEventListener("click", () => {
   console.log(operate(firstOperation, secondOperation, firstOperator));
 });
 
+//Makes a running count so numbers can be added on
 function runningCount(input, last) {
   if (currentDisplay.textContent === "0") {
     currentDisplay.textContent = input;
@@ -41,37 +42,28 @@ function runningCount(input, last) {
   }
 }
 
+//Main logic when a operator is added  and logs numbers to use in an equation
 function addOperator(input) {
+  //checks if the first operation is null if true then it add the current display value to second operator
   if (firstOperation != null) {
     secondOperation = currentDisplay.textContent;
-    console.log("first if exe", secondOperation);
-    firstOperator = null;
-  } else if ((secondOperation = null)) {
+    if (
+      firstOperation != null &&
+      secondOperation != null &&
+      firstOperator != null
+    ) {
+      // if first and second operation arent null and theres a operator this will calcuate it
+      firstOperation = operate(firstOperation, secondOperation, firstOperator);
+    }
+  } else {
+    // Makes current display the first operation
     firstOperation = currentDisplay.textContent;
-  } else {
-    currentDisplay.textContent = operate(
-      secondOperation,
-      firstOperation,
-      firstOperator
-    );
-  }
-  console.log(
-    "Running count",
-    firstOperation,
-    secondOperation,
-    firstOperator,
-    secondOperator
-  );
-  if (firstOperator != null) {
-    operate(firstOperation, secondOperation, firstOperator);
-    secondOperator = input;
-    firstOperation = null;
-  } else {
     firstOperator = input;
     currentDisplay.textContent = "0";
-    secondOperator = null;
   }
-  console.log("eq check", firstOperator, secondOperator);
+  console.log("Running count", firstOperation, secondOperation, firstOperator);
+
+  console.log("eq check", firstOperator);
 }
 
 function operate(a, b, op) {
