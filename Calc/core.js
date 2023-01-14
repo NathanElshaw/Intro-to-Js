@@ -54,9 +54,11 @@ function addOperator(input) {
     currentDisplay.textContent = 0;
     currentDisplay.value = 0;
   } else {
+    //Else then it add the display number to second operation
     secondOperation = currentDisplay.value;
     secondOperator = input;
     currentDisplay.value = 0;
+    //Then if all  pieces of a equation are there it executes and reassigns the operator to the first
     if (firstOperation != null && secondOperation != null) {
       firstOperation = operate(firstOperation, secondOperation, firstOperator);
       firstOperation = firstOperation.toString();
@@ -69,6 +71,7 @@ function addOperator(input) {
   }
 }
 
+// Takes 2 numbers and an operator and computes it
 function operate(a, b, op) {
   a = parseInt(a);
   b = parseInt(b);
@@ -87,6 +90,7 @@ function operate(a, b, op) {
   }
 }
 
+//Resets the program and display to default
 function clearDisplay() {
   firstOperation = null;
   secondOperation = null;
@@ -100,5 +104,5 @@ function clearDisplay() {
 Get button input -Done
 keep a running string of numbers before a logic op is used - Done
 add second, and so on input - Done
-evalute the function
+evalute the function - Done
 */
