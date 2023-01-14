@@ -1,4 +1,4 @@
-const currentDisplay = document.querySelector("#currentDisplay");
+const currentDisplay = document.getElementById("currentDisplay");
 const clear = document.querySelector("#clear");
 const enter = document.querySelector("#operate");
 
@@ -14,7 +14,7 @@ let secondOperator = null;
 
 calcButton.forEach((btnMain) => {
   btnMain.addEventListener("click", () => {
-    runningCount(btnMain.value, currentDisplay.textContent);
+    runningCount(btnMain.value, currentDisplay.value);
   });
 });
 
@@ -29,54 +29,49 @@ clear.addEventListener("click", () => {
 });
 
 enter.addEventListener("click", () => {
-  console.log(
-    "Check enter",
-    firstOperation,
-    currentDisplay.textContent,
-    firstOperator
-  );
-  operate(firstOperation, currentDisplay.textContent, firstOperator);
+  firstOperation = operate(firstOperation, currentDisplay.value, firstOperator);
+  firstOperator = null;
+  currentDisplay.textContent = firstOperation;
+  currentDisplay.value = 0;
 });
 
 //Makes a running count so numbers can be added on
 function runningCount(input, last) {
-  if (currentDisplay.textContent === "0") {
+  if (currentDisplay.textContent === "0" || currentDisplay.value === "0") {
     currentDisplay.textContent = input;
+    currentDisplay.value = input;
   } else {
     currentDisplay.textContent = last.concat(input);
+    currentDisplay.value = last.concat(input);
   }
 }
 
 //Main logic when a operator is added  and logs numbers to use in an equation
 function addOperator(input) {
   if (firstOperation === null) {
-    firstOperation = currentDisplay.textContent;
+    firstOperation = currentDisplay.value;
     firstOperator = input;
-    console.log("1st", firstOperation, firstOperator);
     currentDisplay.textContent = 0;
+    currentDisplay.value = 0;
   } else {
-    secondOperation = currentDisplay.textContent;
+    secondOperation = currentDisplay.value;
     secondOperator = input;
-    currentDisplay.textContent = 0;
-    console.log("2nd", secondOperation, secondOperator);
+    currentDisplay.value = 0;
     if (firstOperation != null && secondOperation != null) {
       firstOperation = operate(firstOperation, secondOperation, firstOperator);
-      console.log(firstOperation);
+      firstOperation = firstOperation.toString();
       currentDisplay.textContent = 0;
-      console.log(
-        "last if Check",
-        firstOperation,
-        secondOperation,
-        firstOperator,
-        secondOperator
-      );
+      currentDisplay.value = 0;
+      firstOperator = secondOperator;
+      secondOperator = null;
+      secondOperation = null;
     }
-    console.log("last if skipped");
   }
 }
 
 function operate(a, b, op) {
-  console.log("operated", a, b, op);
+  a = parseInt(a);
+  b = parseInt(b);
   if (op === "+") {
     return a + b;
   } else if (op === "-") {
@@ -90,8 +85,6 @@ function operate(a, b, op) {
       return a / b;
     }
   }
-  firstOperator = null;
-  secondOperation = null;
 }
 
 function clearDisplay() {
@@ -100,6 +93,7 @@ function clearDisplay() {
   firstOperator = null;
   secondOperator = null;
   currentDisplay.textContent = 0;
+  currentDisplay.value;
 }
 
 /* 
