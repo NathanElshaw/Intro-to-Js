@@ -60,9 +60,8 @@ function addOperator(input) {
     currentDisplay.textContent = 0;
     console.log("2nd", secondOperation, secondOperator);
     if (firstOperation != null && secondOperation != null) {
-      operate(firstOperation, secondOperation, firstOperator);
-      secondOperator = null;
-      secondOperation = null;
+      firstOperation = operate(firstOperation, secondOperation, firstOperator);
+      console.log(firstOperation);
       currentDisplay.textContent = 0;
       console.log(
         "last if Check",
@@ -79,19 +78,18 @@ function addOperator(input) {
 function operate(a, b, op) {
   console.log("operated", a, b, op);
   if (op === "+") {
-    firstOperation = a + b;
+    return a + b;
   } else if (op === "-") {
-    firstOperation = a - b;
+    return a - b;
   } else if (op === "*") {
-    firstOperation = a * b;
+    return a * b;
   } else if (op === "/") {
     if (b === 0) {
       currentDisplay.textContent = "That Doesnt work";
     } else {
-      firstOperation = a / b;
+      return a / b;
     }
   }
-  console.log(firstOperation);
   firstOperator = null;
   secondOperation = null;
 }
