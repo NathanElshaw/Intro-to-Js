@@ -29,8 +29,13 @@ clear.addEventListener("click", () => {
 });
 
 enter.addEventListener("click", () => {
-  console.log(firstOperation, secondOperation, firstOperator);
-  console.log(operate(firstOperation, secondOperation, firstOperator));
+  console.log(
+    "Check enter",
+    firstOperation,
+    currentDisplay.textContent,
+    firstOperator
+  );
+  operate(firstOperation, currentDisplay.textContent, firstOperator);
 });
 
 //Makes a running count so numbers can be added on
@@ -44,44 +49,51 @@ function runningCount(input, last) {
 
 //Main logic when a operator is added  and logs numbers to use in an equation
 function addOperator(input) {
-  //checks if the first operation is null if true then it add the current display value to second operator
-  if (firstOperation != null) {
-    secondOperation = currentDisplay.textContent;
-    if (
-      firstOperation != null &&
-      secondOperation != null &&
-      firstOperator != null
-    ) {
-      // if first and second operation arent null and theres a operator this will calcuate it
-      firstOperation = operate(firstOperation, secondOperation, firstOperator);
-    }
-  } else {
-    // Makes current display the first operation
+  if (firstOperation === null) {
     firstOperation = currentDisplay.textContent;
     firstOperator = input;
-    currentDisplay.textContent = "0";
+    console.log("1st", firstOperation, firstOperator);
+    currentDisplay.textContent = 0;
+  } else {
+    secondOperation = currentDisplay.textContent;
+    secondOperator = input;
+    currentDisplay.textContent = 0;
+    console.log("2nd", secondOperation, secondOperator);
+    if (firstOperation != null && secondOperation != null) {
+      operate(firstOperation, secondOperation, firstOperator);
+      secondOperator = null;
+      secondOperation = null;
+      currentDisplay.textContent = 0;
+      console.log(
+        "last if Check",
+        firstOperation,
+        secondOperation,
+        firstOperator,
+        secondOperator
+      );
+    }
+    console.log("last if skipped");
   }
-  console.log("Running count", firstOperation, secondOperation, firstOperator);
-
-  console.log("eq check", firstOperator);
 }
 
 function operate(a, b, op) {
+  console.log("operated", a, b, op);
   if (op === "+") {
-    currentDisplay.textContent = a + b;
+    firstOperation = a + b;
   } else if (op === "-") {
-    currentDisplay.textContent = a - b;
+    firstOperation = a - b;
   } else if (op === "*") {
-    currentDisplay.textContent = a * b;
+    firstOperation = a * b;
   } else if (op === "/") {
     if (b === 0) {
       currentDisplay.textContent = "That Doesnt work";
     } else {
-      currentDisplay.textContent = a / b;
+      firstOperation = a / b;
     }
   }
-  secondOperation = currentDisplay.textContent;
-  firstOperation = null;
+  console.log(firstOperation);
+  firstOperator = null;
+  secondOperation = null;
 }
 
 function clearDisplay() {
@@ -89,7 +101,7 @@ function clearDisplay() {
   secondOperation = null;
   firstOperator = null;
   secondOperator = null;
-  currentDisplay.textContent = 1;
+  currentDisplay.textContent = 0;
 }
 
 /* 
